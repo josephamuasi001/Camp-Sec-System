@@ -4,12 +4,19 @@
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  min-height: 100%;
+body {
+  font-family: Inter, Arial, sans-serif;
+  background: #f5f7fa;
+  color: #172033;
 }
 
-body {
-  font-family: Arial, sans-serif;
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
 }
