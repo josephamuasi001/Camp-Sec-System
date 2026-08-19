@@ -1,38 +1,39 @@
+import { useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import StatCard from "../components/StatCard";
 import IncidentCard from "../components/IncidentCard";
-
-const incidents = [
-  {
-    id: "INC-001",
-    incident_type: "Theft",
-    location: "Balme Library",
-    status: "Under Review",
-    date: "19 Aug 2026",
-  },
-  {
-    id: "INC-002",
-    incident_type: "Vandalism",
-    location: "Commonwealth Hall",
-    status: "Resolved",
-    date: "18 Aug 2026",
-  },
-  {
-    id: "INC-003",
-    incident_type: "Lost Property",
-    location: "UG Main Gate",
-    status: "Submitted",
-    date: "18 Aug 2026",
-  },
-];
+import { getIncidents } from "../services/api";
 
 function Dashboard({ setPage }) {
+  const [incidents, setIncidents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadIncidents = async () => {
+      try {
+        const data = await getIncidents();
+
+        setIncidents(data.incidents);
+      } catch (err) {
+        setError("Unable to load incidents.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIncidents();
+  }, []);
+
   return (
     <div className="dashboard">
       <section className="dashboard-header">
         <div>
           <p className="eyebrow">CAMPUS SECURITY</p>
+
           <h1>Security Overview</h1>
+
           <p>
             Monitor and manage reported security incidents across campus.
           </p>
@@ -77,7 +78,10 @@ function Dashboard({ setPage }) {
         <div className="section-heading">
           <div>
             <h2>Recent Incidents</h2>
-            <p>Latest security reports submitted on campus.</p>
+
+            <p>
+              Latest security reports submitted on campus.
+            </p>
           </div>
 
           <button className="text-button">
@@ -86,13 +90,34 @@ function Dashboard({ setPage }) {
         </div>
 
         <div className="incident-list">
-          {incidents.map((incident) => (
-            <IncidentCard
-              key={incident.id}
-              incident={incident}
-              onClick={() => setPage("details")}
-            />
-          ))}
+          {loading && (
+            <p>Loading incidents...</p>
+          )}
+
+          {error && (
+            <p>{error}</p>
+          )}
+
+          {!loading &&
+            !error &&
+            incidents.length === 0 && (
+              <p>
+                No incidents have been reported yet.
+              </p>
+            )}
+
+          {!loading &&
+            !error &&
+            incidents.map((incident) => (
+              <IncidentCard
+                key={incident.id}
+                incident={{
+                  ...incident,
+                  date: incident.incident_date,
+                }}
+                onClick={() => setPage("details")}
+              />
+            ))}
         </div>
       </section>
     </div>

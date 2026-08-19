@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 from app.database import supabase
@@ -17,6 +18,19 @@ class IncidentCreate(BaseModel):
     location: str
     incident_date: str
     incident_time: str
+    
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
 
 
 @app.get("/")
@@ -67,6 +81,28 @@ def create_incident(incident: IncidentCreate):
         return {
             "message": "Incident created successfully",
             "incident": response.data[0],
+        }
+
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
+        
+
+@app.get("/incidents")
+def get_incidents():
+    try:
+        response = (
+            supabase
+            .table("incidents")
+            .select("*")
+            .execute()
+        )
+
+        return {
+            "message": "Incidents retrieved successfully",
+            "incidents": response.data,
         }
 
     except Exception as error:
