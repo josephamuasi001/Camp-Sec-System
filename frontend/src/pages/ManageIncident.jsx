@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
+import { updateIncidentStatus } from "../services/api";
 
 function ManageIncident({ setPage }) {
   const incident = {
@@ -14,6 +15,8 @@ function ManageIncident({ setPage }) {
   };
 
   const [status, setStatus] = useState(incident.status);
+  const [updating, setUpdating] = useState(false);
+  const [error, setError] = useState("");
 
   const handleUpdate = () => {
     alert(`Incident ${incident.id} updated to "${status}"`);
