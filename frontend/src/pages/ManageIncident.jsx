@@ -8,32 +8,83 @@ import {
 } from "../services/api";
 
 function ManageIncident({ setPage, incidentId }) {
-
-  const [status, setStatus] = useState(incident.status);
+  const [incident, setIncident] = useState(null);
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(true);
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    const loadIncident = async () => {
+      if (!incidentId) {
+        setError("No incident selected.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await getIncident(incidentId);
+
+        setIncident(data.incident);
+        setStatus(data.incident.status);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load incident.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIncident();
+  }, [incidentId]);
+
   const handleUpdate = async () => {
-  setUpdating(true);
-  setError("");
+    setUpdating(true);
+    setError("");
 
-  try {
-    const data = await updateIncidentStatus(
-      incident.id,
-      status
+    try {
+      const data = await updateIncidentStatus(
+        incident.id,
+        status
+      );
+
+      setIncident(data.incident);
+      setStatus(data.incident.status);
+
+      alert("Incident status updated successfully.");
+    } catch (err) {
+      console.error(err);
+      setError("Unable to update incident status.");
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="details-page">
+        <p>Loading incident...</p>
+      </div>
     );
-
-    // Update the UI using the value returned by the backend
-    setStatus(data.incident.status);
-
-    alert("Incident status updated successfully.");
-  } catch (err) {
-    console.error(err);
-    setError("Unable to update incident status.");
-  } finally {
-    setUpdating(false);
   }
-};
+
+  if (error || !incident) {
+    return (
+      <div className="details-page">
+        <button
+          className="back-button"
+          onClick={() => setPage("security")}
+        >
+          <ArrowLeft size={18} />
+          Back to Security Portal
+        </button>
+
+        <p className="form-error">
+          {error || "Incident not found."}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="details-page">
@@ -48,7 +99,7 @@ function ManageIncident({ setPage, incidentId }) {
       <div className="details-header">
         <div>
           <p className="eyebrow">
-            SECURITY MANAGEMENT · {incident.id}
+            SECURITY MANAGEMENT · INC-{String(incident.id).padStart(3, "0")}
           </p>
 
           <h1>{incident.incident_type}</h1>
@@ -101,7 +152,10 @@ function ManageIncident({ setPage, incidentId }) {
 
             <div className="info-item">
               <span>Incident ID</span>
-              <strong>{incident.id}</strong>
+
+              <strong>
+                INC-{String(incident.id).padStart(3, "0")}
+              </strong>
             </div>
           </div>
         </section>
@@ -124,7 +178,9 @@ function ManageIncident({ setPage, incidentId }) {
 
           <select
             value={status}
-            onChange={(event) => setStatus(event.target.value)}
+            onChange={(event) =>
+              setStatus(event.target.value)
+            }
           >
             <option>Submitted</option>
             <option>Under Review</option>
