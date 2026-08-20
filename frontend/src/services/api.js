@@ -1,4 +1,4 @@
-const API_URL = "https://camp-sec-system.onrender.com";
+const API_URL = "https://camp-backend-umou.onrender.com";
 
 export async function getIncidents() {
   const response = await fetch(`${API_URL}/incidents`);
