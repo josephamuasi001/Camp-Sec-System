@@ -153,12 +153,30 @@ function Dashboard({ setPage, setSelectedIncident }) {
           )}
 
           {!loading &&
-            !error &&
-            incidents.length === 0 && (
-              <p>
-                No incidents have been reported yet.
-              </p>
-            )}
+  !error &&
+  incidents.length === 0 && (
+    <p>No incidents have been reported yet.</p>
+  )}
+
+{!loading &&
+  !error &&
+  incidents.length > 0 &&
+  filteredIncidents.length === 0 && (
+    <p>No incidents match this filter.</p>
+  )}
+
+{!loading &&
+  !error &&
+  filteredIncidents.map((incident) => (
+    <IncidentCard
+      key={incident.id}
+      incident={{
+        ...incident,
+        date: incident.incident_date,
+      }}
+      onClick={() => handleIncidentClick(incident)}
+    />
+  ))}
 
           {!loading &&
             !error &&
