@@ -1,16 +1,68 @@
-import { ArrowLeft, MapPin, Calendar, Clock, Shield } from "lucide-react";
+import { useEffect, useState } from "react";
 
-function IncidentDetails({ setPage }) {
-  const incident = {
-    id: "INC-001",
-    incident_type: "Theft",
-    location: "Balme Library",
-    incident_date: "19 August 2026",
-    incident_time: "10:30 AM",
-    description:
-      "A laptop was reported missing from the library. The incident was reported to campus security for further investigation.",
-    status: "Under Review",
-  };
+import {
+  ArrowLeft,
+  MapPin,
+  Calendar,
+  Clock,
+  Shield,
+} from "lucide-react";
+
+import { getIncident } from "../services/api";
+
+function IncidentDetails({ setPage, incidentId }) {
+  const [incident, setIncident] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadIncident = async () => {
+      if (!incidentId) {
+        setError("No incident selected.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await getIncident(incidentId);
+
+        setIncident(data.incident);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load incident.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIncident();
+  }, [incidentId]);
+
+  if (loading) {
+    return (
+      <div className="details-page">
+        <p>Loading incident...</p>
+      </div>
+    );
+  }
+
+  if (error || !incident) {
+    return (
+      <div className="details-page">
+        <button
+          className="back-button"
+          onClick={() => setPage("dashboard")}
+        >
+          <ArrowLeft size={18} />
+          Back to Dashboard
+        </button>
+
+        <p className="form-error">
+          {error || "Incident not found."}
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className="details-page">
@@ -24,8 +76,12 @@ function IncidentDetails({ setPage }) {
 
       <div className="details-header">
         <div>
-          <p className="eyebrow">INCIDENT {incident.id}</p>
+          <p className="eyebrow">
+            INCIDENT INC-{String(incident.id).padStart(3, "0")}
+          </p>
+
           <h1>{incident.incident_type}</h1>
+
           <p>
             Security incident reported on campus.
           </p>
@@ -77,7 +133,10 @@ function IncidentDetails({ setPage }) {
 
               <div>
                 <span>Incident ID</span>
-                <strong>{incident.id}</strong>
+
+                <strong>
+                  INC-{String(incident.id).padStart(3, "0")}
+                </strong>
               </div>
             </div>
           </div>
