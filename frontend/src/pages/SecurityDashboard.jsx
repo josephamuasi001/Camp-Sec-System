@@ -1,31 +1,50 @@
+import { useEffect, useState } from "react";
 import { ShieldCheck } from "lucide-react";
+
 import IncidentCard from "../components/IncidentCard";
+import { getIncidents } from "../services/api";
 
-const incidents = [
-  {
-    id: "INC-001",
-    incident_type: "Theft",
-    location: "Balme Library",
-    status: "Under Review",
-    date: "19 Aug 2026",
-  },
-  {
-    id: "INC-002",
-    incident_type: "Vandalism",
-    location: "Commonwealth Hall",
-    status: "Resolved",
-    date: "18 Aug 2026",
-  },
-  {
-    id: "INC-003",
-    incident_type: "Lost Property",
-    location: "UG Main Gate",
-    status: "Submitted",
-    date: "18 Aug 2026",
-  },
-];
+function SecurityDashboard({ setPage, setSelectedIncident }) {
+  const [incidents, setIncidents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-function SecurityDashboard({ setPage }) {
+  useEffect(() => {
+    const loadIncidents = async () => {
+      try {
+        const data = await getIncidents();
+
+        setIncidents(data.incidents);
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load incident reports.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIncidents();
+  }, []);
+
+  const handleIncidentClick = (incident) => {
+    setSelectedIncident(incident.id);
+    setPage("manage");
+  };
+
+  const pendingCount = incidents.filter(
+    (incident) =>
+      incident.status === "Submitted" ||
+      incident.status === "Under Review"
+  ).length;
+
+  const investigationCount = incidents.filter(
+    (incident) => incident.status === "Under Investigation"
+  ).length;
+
+  const resolvedCount = incidents.filter(
+    (incident) => incident.status === "Resolved"
+  ).length;
+
   return (
     <div className="security-page">
       <section className="security-header">
@@ -48,17 +67,17 @@ function SecurityDashboard({ setPage }) {
       <section className="security-stats">
         <div className="security-stat">
           <span>Pending Reports</span>
-          <strong>4</strong>
+          <strong>{pendingCount}</strong>
         </div>
 
         <div className="security-stat">
           <span>Under Investigation</span>
-          <strong>5</strong>
+          <strong>{investigationCount}</strong>
         </div>
 
         <div className="security-stat">
           <span>Resolved</span>
-          <strong>3</strong>
+          <strong>{resolvedCount}</strong>
         </div>
       </section>
 
@@ -66,6 +85,7 @@ function SecurityDashboard({ setPage }) {
         <div className="section-heading">
           <div>
             <h2>Incident Reports</h2>
+
             <p>
               Select an incident to review and manage it.
             </p>
@@ -73,13 +93,34 @@ function SecurityDashboard({ setPage }) {
         </div>
 
         <div className="incident-list">
-          {incidents.map((incident) => (
-            <IncidentCard
-              key={incident.id}
-              incident={incident}
-              onClick={() => setPage("manage")}
-            />
-          ))}
+          {loading && (
+            <p>Loading incident reports...</p>
+          )}
+
+          {error && (
+            <p className="form-error">{error}</p>
+          )}
+
+          {!loading &&
+            !error &&
+            incidents.length === 0 && (
+              <p>No incident reports available.</p>
+            )}
+
+          {!loading &&
+            !error &&
+            incidents.map((incident) => (
+              <IncidentCard
+                key={incident.id}
+                incident={{
+                  ...incident,
+                  date: incident.incident_date,
+                }}
+                onClick={() =>
+                  handleIncidentClick(incident)
+                }
+              />
+            ))}
         </div>
       </section>
     </div>
