@@ -24,7 +24,10 @@ function App() {
 
       <main>
         {page === "dashboard" && (
-          <Dashboard setPage={setPage} />
+          <Dashboard
+            setPage={setPage}
+            setSelectedIncident={setSelectedIncident}
+          />
         )}
 
         {page === "report" && (
@@ -32,7 +35,10 @@ function App() {
         )}
 
         {page === "details" && (
-          <IncidentDetails setPage={setPage} />
+          <IncidentDetails
+            setPage={setPage}
+            incidentId={selectedIncident}
+          />
         )}
 
         {page === "security" && (
