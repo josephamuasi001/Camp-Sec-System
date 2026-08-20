@@ -113,34 +113,34 @@ function Dashboard({ setPage, setSelectedIncident }) {
           </div>
 
           <div className="filter-buttons">
-  <button
-    className={filter === "All" ? "active-filter" : ""}
-    onClick={() => setFilter("All")}
-  >
-    All
-  </button>
+            <button
+              className={filter === "All" ? "active-filter" : ""}
+              onClick={() => setFilter("All")}
+            >
+              All
+            </button>
 
-  <button
-    className={filter === "Submitted" ? "active-filter" : ""}
-    onClick={() => setFilter("Submitted")}
-  >
-    Submitted
-  </button>
+            <button
+              className={filter === "Submitted" ? "active-filter" : ""}
+              onClick={() => setFilter("Submitted")}
+            >
+              Submitted
+            </button>
 
-  <button
-    className={filter === "Under Investigation" ? "active-filter" : ""}
-    onClick={() => setFilter("Under Investigation")}
-  >
-    Under Investigation
-  </button>
+            <button
+              className={filter === "Under Investigation" ? "active-filter" : ""}
+              onClick={() => setFilter("Under Investigation")}
+            >
+              Under Investigation
+            </button>
 
-  <button
-    className={filter === "Resolved" ? "active-filter" : ""}
-    onClick={() => setFilter("Resolved")}
-  >
-    Resolved
-  </button>
-</div>
+            <button
+              className={filter === "Resolved" ? "active-filter" : ""}
+              onClick={() => setFilter("Resolved")}
+            >
+              Resolved
+            </button>
+          </div>
         </div>
 
         <div className="incident-list">
