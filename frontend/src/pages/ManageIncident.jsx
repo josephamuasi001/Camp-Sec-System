@@ -18,9 +18,21 @@ function ManageIncident({ setPage }) {
   const [updating, setUpdating] = useState(false);
   const [error, setError] = useState("");
 
-  const handleUpdate = () => {
-    alert(`Incident ${incident.id} updated to "${status}"`);
-  };
+  const handleUpdate = async () => {
+  setUpdating(true);
+  setError("");
+
+  try {
+    await updateIncidentStatus(incident.id, status);
+
+    alert("Incident status updated successfully.");
+  } catch (err) {
+    console.error(err);
+    setError("Unable to update incident status.");
+  } finally {
+    setUpdating(false);
+  }
+};
 
   return (
     <div className="details-page">
