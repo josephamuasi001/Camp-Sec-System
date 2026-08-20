@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+
 import { Plus } from "lucide-react";
+
 import StatCard from "../components/StatCard";
 import IncidentCard from "../components/IncidentCard";
+
 import { getIncidents } from "../services/api";
 
-function Dashboard({ setPage }) {
+function Dashboard({ setPage, setSelectedIncident }) {
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -25,6 +28,23 @@ function Dashboard({ setPage }) {
 
     loadIncidents();
   }, []);
+
+  const submittedCount = incidents.filter(
+    (incident) => incident.status === "Submitted"
+  ).length;
+
+  const investigationCount = incidents.filter(
+    (incident) => incident.status === "Under Investigation"
+  ).length;
+
+  const resolvedCount = incidents.filter(
+    (incident) => incident.status === "Resolved"
+  ).length;
+
+  const handleIncidentClick = (incident) => {
+    setSelectedIncident(incident.id);
+    setPage("details");
+  };
 
   return (
     <div className="dashboard">
@@ -51,25 +71,25 @@ function Dashboard({ setPage }) {
       <section className="stats-grid">
         <StatCard
           title="Total Incidents"
-          value="12"
+          value={incidents.length}
           description="All reported incidents"
         />
 
         <StatCard
           title="Submitted"
-          value="4"
+          value={submittedCount}
           description="Awaiting review"
         />
 
         <StatCard
           title="Under Investigation"
-          value="5"
+          value={investigationCount}
           description="Currently being handled"
         />
 
         <StatCard
           title="Resolved"
-          value="3"
+          value={resolvedCount}
           description="Successfully resolved"
         />
       </section>
@@ -115,7 +135,9 @@ function Dashboard({ setPage }) {
                   ...incident,
                   date: incident.incident_date,
                 }}
-                onClick={() => setPage("details")}
+                onClick={() =>
+                  handleIncidentClick(incident)
+                }
               />
             ))}
         </div>
