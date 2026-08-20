@@ -198,3 +198,4 @@ def get_incident(incident_id: int):
             status_code=500,
             detail=str(error),
         )
+        
