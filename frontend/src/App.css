@@ -602,3 +602,32 @@ main {
     grid-template-columns: 1fr;
   }
 }
+
+
+.filter-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter-buttons button {
+  border: 1px solid #d1d5db;
+  background: white;
+  color: #374151;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.filter-buttons button:hover {
+  background: #f3f4f6;
+}
+
+.filter-buttons button.active-filter {
+  background: #111827;
+  color: white;
+  border-color: #111827;
+}
