@@ -162,7 +162,7 @@ function Dashboard({ setPage, setSelectedIncident }) {
 
           {!loading &&
             !error &&
-            incidents.map((incident) => (
+           filteredIncidents.map((incident) => (
               <IncidentCard
                 key={incident.id}
                 incident={{
