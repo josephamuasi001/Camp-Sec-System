@@ -177,21 +177,7 @@ function Dashboard({ setPage, setSelectedIncident }) {
                   onClick={() => handleIncidentClick(incident)}
                 />
               ))}
-
-          {!loading &&
-            !error &&
-           filteredIncidents.map((incident) => (
-              <IncidentCard
-                key={incident.id}
-                incident={{
-                  ...incident,
-                  date: incident.incident_date,
-                }}
-                onClick={() =>
-                  handleIncidentClick(incident)
-                }
-              />
-            ))}
+              
         </div>
       </section>
     </div>
