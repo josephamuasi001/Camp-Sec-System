@@ -195,6 +195,7 @@ function ManageIncident({ setPage, incidentId }) {
             </p>
           )}
 
+
           <button
             className="primary-button"
             onClick={handleUpdate}
