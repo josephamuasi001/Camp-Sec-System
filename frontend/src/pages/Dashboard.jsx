@@ -41,7 +41,7 @@ function Dashboard({ setPage, setSelectedIncident }) {
   const resolvedCount = incidents.filter(
     (incident) => incident.status === "Resolved"
   ).length;
-  
+
   const filteredIncidents =
   filter === "All"
     ? incidents
@@ -112,9 +112,35 @@ function Dashboard({ setPage, setSelectedIncident }) {
             </p>
           </div>
 
-          <button className="text-button">
-            View All
-          </button>
+          <div className="filter-buttons">
+  <button
+    className={filter === "All" ? "active-filter" : ""}
+    onClick={() => setFilter("All")}
+  >
+    All
+  </button>
+
+  <button
+    className={filter === "Submitted" ? "active-filter" : ""}
+    onClick={() => setFilter("Submitted")}
+  >
+    Submitted
+  </button>
+
+  <button
+    className={filter === "Under Investigation" ? "active-filter" : ""}
+    onClick={() => setFilter("Under Investigation")}
+  >
+    Under Investigation
+  </button>
+
+  <button
+    className={filter === "Resolved" ? "active-filter" : ""}
+    onClick={() => setFilter("Resolved")}
+  >
+    Resolved
+  </button>
+</div>
         </div>
 
         <div className="incident-list">
