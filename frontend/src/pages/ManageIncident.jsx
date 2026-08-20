@@ -1,18 +1,13 @@
-import { useState } from "react";
-import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
-import { updateIncidentStatus } from "../services/api";
+import { useEffect, useState } from "react";
 
-function ManageIncident({ setPage }) {
-  const incident = {
-    id: "1",
-    incident_type: "Theft",
-    location: "Balme Library",
-    incident_date: "19 August 2026",
-    incident_time: "10:30 AM",
-    description:
-      "A laptop was reported missing from the library. The incident was reported to campus security for further investigation.",
-    status: "Under Review",
-  };
+import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
+
+import {
+  getIncident,
+  updateIncidentStatus,
+} from "../services/api";
+
+function ManageIncident({ setPage, incidentId }) {
 
   const [status, setStatus] = useState(incident.status);
   const [updating, setUpdating] = useState(false);
