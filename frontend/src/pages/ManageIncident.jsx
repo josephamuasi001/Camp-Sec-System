@@ -132,11 +132,18 @@ function ManageIncident({ setPage }) {
             <option>Closed</option>
           </select>
 
+          {error && (
+            <p className="form-error">
+              {error}
+            </p>
+          )}
+
           <button
             className="primary-button"
             onClick={handleUpdate}
+            disabled={updating}
           >
-            Update Status
+            {updating ? "Updating..." : "Update Status"}
           </button>
         </section>
       </div>
