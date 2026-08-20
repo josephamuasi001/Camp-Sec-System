@@ -198,4 +198,5 @@ function Dashboard({ setPage, setSelectedIncident }) {
   );
 }
 
+
 export default Dashboard;
