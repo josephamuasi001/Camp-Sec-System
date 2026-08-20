@@ -9,3 +9,19 @@ export async function getIncidents() {
 
   return response.json();
 }
+
+export async function createIncident(incident) {
+  const response = await fetch(`${API_URL}/incidents`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(incident),
+  });
+
+  if (!response.ok) {
+    throw new Error("Failed to create incident");
+  }
+
+  return response.json();
+}

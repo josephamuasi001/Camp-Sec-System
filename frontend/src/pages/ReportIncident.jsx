@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { createIncident } from "../services/api";
 import { ArrowLeft, Send } from "lucide-react";
 
 function ReportIncident({ setPage }) {
@@ -11,6 +12,8 @@ function ReportIncident({ setPage }) {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -21,12 +24,22 @@ function ReportIncident({ setPage }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    console.log("Incident submitted:", formData);
+    setSubmitting(true);
+    setError("");
 
-    setSubmitted(true);
+    try {
+      await createIncident(formData);
+
+      setSubmitted(true);
+    } catch (err) {
+      console.error(err);
+      setError("Unable to submit incident. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -162,12 +175,20 @@ function ReportIncident({ setPage }) {
           />
         </div>
 
+        {error && (
+          <p className="form-error">
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
           className="primary-button submit-button"
+          disabled={submitting}
         >
           <Send size={18} />
-          Submit Incident
+
+          {submitting ? "Submitting..." : "Submit Incident"}
         </button>
       </form>
     </div>
