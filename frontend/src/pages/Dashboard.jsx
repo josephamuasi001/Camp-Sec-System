@@ -11,6 +11,7 @@ function Dashboard({ setPage, setSelectedIncident }) {
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     const loadIncidents = async () => {
