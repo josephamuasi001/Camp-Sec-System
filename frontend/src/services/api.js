@@ -47,3 +47,16 @@ export async function updateIncidentStatus(incidentId, status) {
 
   return response.json();
 }
+
+
+export async function getIncident(incidentId) {
+  const response = await fetch(
+    `${API_URL}/incidents/${incidentId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch incident");
+  }
+
+  return response.json();
+}
