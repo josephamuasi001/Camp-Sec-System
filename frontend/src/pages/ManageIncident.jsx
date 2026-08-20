@@ -4,7 +4,7 @@ import { updateIncidentStatus } from "../services/api";
 
 function ManageIncident({ setPage }) {
   const incident = {
-    id: "INC-001",
+    id: "1",
     incident_type: "Theft",
     location: "Balme Library",
     incident_date: "19 August 2026",
@@ -23,7 +23,13 @@ function ManageIncident({ setPage }) {
   setError("");
 
   try {
-    await updateIncidentStatus(incident.id, status);
+    const data = await updateIncidentStatus(
+      incident.id,
+      status
+    );
+
+    // Update the UI using the value returned by the backend
+    setStatus(data.incident.status);
 
     alert("Incident status updated successfully.");
   } catch (err) {
