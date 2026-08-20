@@ -41,6 +41,13 @@ function Dashboard({ setPage, setSelectedIncident }) {
   const resolvedCount = incidents.filter(
     (incident) => incident.status === "Resolved"
   ).length;
+  
+  const filteredIncidents =
+  filter === "All"
+    ? incidents
+    : incidents.filter(
+        (incident) => incident.status === filter
+      );
 
   const handleIncidentClick = (incident) => {
     setSelectedIncident(incident.id);
