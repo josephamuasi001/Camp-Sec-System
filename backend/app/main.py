@@ -19,6 +19,12 @@ class IncidentCreate(BaseModel):
     incident_date: str
     incident_time: str
     
+class IncidentStatusUpdate(BaseModel):
+    status: str
+    
+    
+    
+    
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -104,6 +110,57 @@ def get_incidents():
             "message": "Incidents retrieved successfully",
             "incidents": response.data,
         }
+
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
+        
+
+@app.patch("/incidents/{incident_id}/status")
+def update_incident_status(
+    incident_id: int,
+    status_update: IncidentStatusUpdate,
+):
+    allowed_statuses = [
+        "Submitted",
+        "Under Review",
+        "Under Investigation",
+        "Resolved",
+        "Closed",
+    ]
+
+    if status_update.status not in allowed_statuses:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid incident status",
+        )
+
+    try:
+        response = (
+            supabase
+            .table("incidents")
+            .update({
+                "status": status_update.status,
+            })
+            .eq("id", incident_id)
+            .execute()
+        )
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Incident not found",
+            )
+
+        return {
+            "message": "Incident status updated successfully",
+            "incident": response.data[0],
+        }
+
+    except HTTPException:
+        raise
 
     except Exception as error:
         raise HTTPException(
