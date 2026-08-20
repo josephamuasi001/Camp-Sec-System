@@ -167,3 +167,34 @@ def update_incident_status(
             status_code=500,
             detail=str(error),
         )
+
+@app.get("/incidents/{incident_id}")
+def get_incident(incident_id: int):
+    try:
+        response = (
+            supabase
+            .table("incidents")
+            .select("*")
+            .eq("id", incident_id)
+            .execute()
+        )
+
+        if not response.data:
+            raise HTTPException(
+                status_code=404,
+                detail="Incident not found",
+            )
+
+        return {
+            "message": "Incident retrieved successfully",
+            "incident": response.data[0],
+        }
+
+    except HTTPException:
+        raise
+
+    except Exception as error:
+        raise HTTPException(
+            status_code=500,
+            detail=str(error),
+        )
