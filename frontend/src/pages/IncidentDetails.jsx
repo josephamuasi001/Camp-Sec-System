@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import "../styles/incident-details.css";
+
 import {
   ArrowLeft,
   MapPin,
@@ -130,33 +132,46 @@ function IncidentDetails({ setPage, incidentId }) {
   }
 
   return (
-    <div className="details-page">
+  <div className="details-page">
 
+    {/* TOP NAVIGATION */}
+    <div className="details-topbar">
       <button
-        className="back-button"
+        className="details-back"
         onClick={() => setPage("dashboard")}
       >
-        <ArrowLeft size={18} />
+        <ArrowLeft size={17} />
         Back to Dashboard
       </button>
 
-      <div className="details-header">
+      <div className="case-reference">
+        <span>CASE REFERENCE</span>
+        <strong>
+          INC-{String(incident.id).padStart(3, "0")}
+        </strong>
+      </div>
+    </div>
 
-        <div>
-          <p className="eyebrow">
-            INCIDENT INC-
-            {String(incident.id).padStart(3, "0")}
-          </p>
+    {/* CASE HEADER */}
+    <section className="case-header">
 
-          <h1>{incident.incident_type}</h1>
-
-          <p>
-            Security incident reported on campus.
-          </p>
+      <div className="case-header-main">
+        <div className="case-eyebrow">
+          <Shield size={15} />
+          CAMPUS SECURITY CASE
         </div>
 
+        <h1>{incident.incident_type}</h1>
+
+        <p>
+          Security incident reported on the University of Ghana campus.
+        </p>
+      </div>
+
+      <div className="case-header-actions">
+
         <span
-          className={`status status-${incident.status
+          className={`case-status status-${incident.status
             .toLowerCase()
             .replaceAll(" ", "-")}`}
         >
@@ -165,226 +180,309 @@ function IncidentDetails({ setPage, incidentId }) {
 
         {incident.status === "Submitted" && (
           <button
-            className="primary-button"
+            className="case-edit-button"
             onClick={() => setEditing(true)}
           >
-            <Pencil size={18} />
+            <Pencil size={17} />
             Edit Incident
           </button>
         )}
 
       </div>
 
-      {!editing ? (
-        <>
-          <div className="details-grid">
+    </section>
 
-            <section className="details-card">
+    {!editing ? (
 
-              <h2>Incident Information</h2>
+      /* =========================
+         VIEW MODE
+         ========================= */
 
-              <div className="info-list">
+      <div className="case-layout">
 
-                <div className="info-item">
-                  <MapPin size={20} />
+        {/* MAIN CASE CONTENT */}
+        <main className="case-main">
 
-                  <div>
-                    <span>Location</span>
-                    <strong>{incident.location}</strong>
-                  </div>
-                </div>
+          <section className="case-section">
+            <div className="case-section-heading">
+              <span className="section-number">01</span>
 
-                <div className="info-item">
-                  <Calendar size={20} />
-
-                  <div>
-                    <span>Date</span>
-                    <strong>{incident.incident_date}</strong>
-                  </div>
-                </div>
-
-                <div className="info-item">
-                  <Clock size={20} />
-
-                  <div>
-                    <span>Time</span>
-                    <strong>{incident.incident_time}</strong>
-                  </div>
-                </div>
-
-                <div className="info-item">
-                  <Shield size={20} />
-
-                  <div>
-                    <span>Incident ID</span>
-
-                    <strong>
-                      INC-
-                      {String(incident.id).padStart(3, "0")}
-                    </strong>
-                  </div>
-                </div>
-
+              <div>
+                <h2>Incident Description</h2>
+                <p>
+                  Details provided by the reporting student.
+                </p>
               </div>
-
-            </section>
-
-            <section className="details-card">
-
-              <h2>Description</h2>
-
-              <p className="incident-description">
-                {incident.description}
-              </p>
-
-            </section>
-
-          </div>
-
-          <div className="details-actions">
-
-          </div>
-        </>
-      ) : (
-
-        <section className="details-card">
-
-          <h2>Edit Incident</h2>
-
-          <div className="incident-form">
-
-            <div className="form-group">
-
-              <label htmlFor="incident_type">
-                Incident Type
-              </label>
-
-              <select
-                id="incident_type"
-                name="incident_type"
-                value={formData.incident_type}
-                onChange={handleChange}
-              >
-                <option value="Theft">Theft</option>
-                <option value="Vandalism">Vandalism</option>
-                <option value="Assault">Assault</option>
-                <option value="Lost Property">
-                  Lost Property
-                </option>
-                <option value="Suspicious Activity">
-                  Suspicious Activity
-                </option>
-                <option value="Other">Other</option>
-              </select>
-
             </div>
 
-            <div className="form-group">
+            <div className="description-box">
+              <p>{incident.description}</p>
+            </div>
+          </section>
 
-              <label htmlFor="location">
-                Location
+          <section className="case-section">
+            <div className="case-section-heading">
+              <span className="section-number">02</span>
+
+              <div>
+                <h2>Incident Information</h2>
+                <p>
+                  Key information associated with this report.
+                </p>
+              </div>
+            </div>
+
+            <div className="incident-information-grid">
+
+              <div className="information-item">
+                <div className="information-icon">
+                  <MapPin size={18} />
+                </div>
+
+                <div>
+                  <span>Location</span>
+                  <strong>{incident.location}</strong>
+                </div>
+              </div>
+
+              <div className="information-item">
+                <div className="information-icon">
+                  <Calendar size={18} />
+                </div>
+
+                <div>
+                  <span>Date</span>
+                  <strong>{incident.incident_date}</strong>
+                </div>
+              </div>
+
+              <div className="information-item">
+                <div className="information-icon">
+                  <Clock size={18} />
+                </div>
+
+                <div>
+                  <span>Time</span>
+                  <strong>{incident.incident_time}</strong>
+                </div>
+              </div>
+
+              <div className="information-item">
+                <div className="information-icon">
+                  <Shield size={18} />
+                </div>
+
+                <div>
+                  <span>Incident ID</span>
+                  <strong>
+                    INC-{String(incident.id).padStart(3, "0")}
+                  </strong>
+                </div>
+              </div>
+
+            </div>
+          </section>
+
+        </main>
+
+        {/* CASE SIDEBAR */}
+        <aside className="case-sidebar">
+
+          <div className="case-sidebar-header">
+            <span>CASE STATUS</span>
+
+            <div className="sidebar-status">
+              <span className="status-dot"></span>
+              {incident.status}
+            </div>
+          </div>
+
+          <div className="case-sidebar-divider"></div>
+
+          <div className="case-sidebar-item">
+            <span>Incident Type</span>
+            <strong>{incident.incident_type}</strong>
+          </div>
+
+          <div className="case-sidebar-item">
+            <span>Reported Location</span>
+            <strong>{incident.location}</strong>
+          </div>
+
+          <div className="case-sidebar-item">
+            <span>Report Date</span>
+            <strong>{incident.incident_date}</strong>
+          </div>
+
+          <div className="case-sidebar-item">
+            <span>Report Time</span>
+            <strong>{incident.incident_time}</strong>
+          </div>
+
+          <div className="case-security-note">
+            <Shield size={18} />
+
+            <div>
+              <strong>Security Notice</strong>
+
+              <p>
+                This report is visible only to authorised
+                campus security personnel and the reporting student.
+              </p>
+            </div>
+          </div>
+
+        </aside>
+
+      </div>
+
+    ) : (
+
+      /* =========================
+         EDIT MODE
+         ========================= */
+
+      <section className="edit-case">
+
+        <div className="edit-case-header">
+          <div>
+            <div className="case-eyebrow">
+              <Pencil size={15} />
+              EDIT SECURITY CASE
+            </div>
+
+            <h2>Update Incident</h2>
+
+            <p>
+              Make changes to the information submitted in this report.
+            </p>
+          </div>
+        </div>
+
+        <div className="edit-form">
+
+          <div className="form-group">
+            <label htmlFor="incident_type">
+              Incident Type
+            </label>
+
+            <select
+              id="incident_type"
+              name="incident_type"
+              value={formData.incident_type}
+              onChange={handleChange}
+            >
+              <option value="Theft">Theft</option>
+              <option value="Vandalism">Vandalism</option>
+              <option value="Assault">Assault</option>
+              <option value="Lost Property">
+                Lost Property
+              </option>
+              <option value="Suspicious Activity">
+                Suspicious Activity
+              </option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="location">
+              Location
+            </label>
+
+            <input
+              id="location"
+              name="location"
+              type="text"
+              value={formData.location}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+
+            <div className="form-group">
+              <label htmlFor="incident_date">
+                Date
               </label>
 
               <input
-                id="location"
-                name="location"
-                type="text"
-                value={formData.location}
+                id="incident_date"
+                name="incident_date"
+                type="date"
+                value={formData.incident_date}
                 onChange={handleChange}
               />
-
-            </div>
-
-            <div className="form-row">
-
-              <div className="form-group">
-
-                <label htmlFor="incident_date">
-                  Date
-                </label>
-
-                <input
-                  id="incident_date"
-                  name="incident_date"
-                  type="date"
-                  value={formData.incident_date}
-                  onChange={handleChange}
-                />
-
-              </div>
-
-              <div className="form-group">
-
-                <label htmlFor="incident_time">
-                  Time
-                </label>
-
-                <input
-                  id="incident_time"
-                  name="incident_time"
-                  type="time"
-                  value={formData.incident_time}
-                  onChange={handleChange}
-                />
-
-              </div>
-
             </div>
 
             <div className="form-group">
-
-              <label htmlFor="description">
-                Description
+              <label htmlFor="incident_time">
+                Time
               </label>
 
-              <textarea
-                id="description"
-                name="description"
-                rows="6"
-                value={formData.description}
+              <input
+                id="incident_time"
+                name="incident_time"
+                type="time"
+                value={formData.incident_time}
                 onChange={handleChange}
               />
-
-            </div>
-
-            {error && (
-              <p className="form-error">
-                {error}
-              </p>
-            )}
-
-            <div className="details-actions">
-
-              <button
-                className="back-button"
-                onClick={() => setEditing(false)}
-                disabled={saving}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="primary-button"
-                onClick={handleSave}
-                disabled={saving}
-              >
-                <Save size={18} />
-
-                {saving
-                  ? "Saving..."
-                  : "Save Changes"}
-              </button>
-
             </div>
 
           </div>
 
-        </section>
+          <div className="form-group">
+            <label htmlFor="description">
+              Description
+            </label>
 
-      )}
+            <textarea
+              id="description"
+              name="description"
+              rows="7"
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
 
-    </div>
-  );
+          {error && (
+            <p className="form-error">
+              {error}
+            </p>
+          )}
+
+          <div className="edit-actions">
+
+            <button
+              className="cancel-edit-button"
+              onClick={() => setEditing(false)}
+              disabled={saving}
+            >
+              Cancel
+            </button>
+
+            <button
+              className="save-case-button"
+              onClick={handleSave}
+              disabled={saving}
+            >
+              <Save size={17} />
+
+              {saving
+                ? "Saving..."
+                : "Save Changes"}
+            </button>
+
+          </div>
+
+        </div>
+
+      </section>
+
+    )}
+
+  </div>
+);
 }
 
 export default IncidentDetails;
