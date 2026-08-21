@@ -1,10 +1,11 @@
 import {
-  Shield,
   LayoutDashboard,
   FilePlus,
   LockKeyhole,
   LogOut,
 } from "lucide-react";
+
+import "../styles/navbar.css";
 
 function Navbar({
   setPage,
@@ -26,11 +27,14 @@ function Navbar({
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <div className="brand-icon">
-          <Shield size={24} />
+        <div className="brand-logo">
+          <img
+            src="/images/ug-logo.png"
+            alt="University of Ghana"
+          />
         </div>
 
-        <div>
+        <div className="brand-text">
           <h2>Camp-Sec</h2>
           <span>Campus Security</span>
         </div>
