@@ -1,8 +1,19 @@
 import { useState } from "react";
-import { ShieldCheck } from "lucide-react";
+
+import {
+  ShieldCheck,
+  ArrowLeft,
+} from "lucide-react";
+
 import { loginAdmin } from "../services/api";
 
-function AdminLogin({ setPage, setAdmin, setStudent }) {
+import "../styles/admin-login.css";
+
+function AdminLogin({
+  setPage,
+  setAdmin,
+  setStudent,
+}) {
   const [securityId, setSecurityId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,10 +27,12 @@ function AdminLogin({ setPage, setAdmin, setStudent }) {
     setError("");
 
     try {
-      const data = await loginAdmin(securityId, password);
+      const data = await loginAdmin(
+        securityId,
+        password
+      );
 
-      // Store the logged-in admin
-      setAdmin(data.security);setAdmin(data.security);
+      setAdmin(data.security);
 
       localStorage.setItem(
         "campsec_admin",
@@ -28,101 +41,164 @@ function AdminLogin({ setPage, setAdmin, setStudent }) {
 
       localStorage.removeItem("campsec_student");
 
-      setPage("security");
       setStudent(null);
-      // Go to Admin Dashboard
       setPage("security");
     } catch (err) {
       console.error(err);
-      setError(err.message || "Admin login failed.");
+
+      setError(
+        err.message || "Admin login failed."
+      );
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="login-page">
-      <div className="login-card">
-
-        <div className="login-icon">
-          <ShieldCheck size={32} />
-        </div>
-
-        <p className="eyebrow">CAMPUS SECURITY</p>
-
-        <h1>Admin Login</h1>
-
-        <p className="login-description">
-          Sign in to access the campus security administration portal.
-        </p>
-
-        <form onSubmit={handleSubmit}>
-
-          <div className="form-group">
-            <label htmlFor="security_id">
-              Admin ID
-            </label>
-
-            <input
-              id="security_id"
-              type="text"
-              placeholder="e.g. SEC001"
-              value={securityId}
-              onChange={(event) =>
-                setSecurityId(event.target.value)
-              }
-              required
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="admin_password">
-              Password
-            </label>
-
-            <input
-              id="admin_password"
-              type="password"
-              placeholder="Enter your password"
-              value={password}
-              onChange={(event) =>
-                setPassword(event.target.value)
-              }
-              required
-            />
-          </div>
-
-          {error && (
-            <p className="form-error">
-              {error}
-            </p>
-          )}
-
-          <button
-            type="submit"
-            className="primary-button"
-            disabled={loading}
-          >
-            <ShieldCheck size={18} />
-
-            {loading ? "Signing in..." : "Sign In as Admin"}
-          </button>
-
-        </form>
+    <div className="admin-login-page">
+      <div className="admin-login-container">
 
         <button
-            className="back-button"
-            onClick={() => setPage("admin-register")}
-            >
-        Don't have an admin account? Register
-        </button>
-
-        <button
-          className="back-button"
+          className="admin-login-back"
           onClick={() => setPage("login")}
         >
+          <ArrowLeft size={17} />
           Back to Student Login
         </button>
+
+        <div className="admin-login-card">
+
+          {/* BRAND */}
+          <div className="admin-login-brand">
+            <div className="admin-login-logo">
+              <img
+                src="/images/ug-logo.png"
+                alt="University of Ghana"
+              />
+            </div>
+
+            <div>
+              <p className="admin-brand-name">
+                Camp-Sec
+              </p>
+
+              <span>
+                Campus Security
+              </span>
+            </div>
+          </div>
+
+          {/* HEADER */}
+          <div className="admin-login-header">
+
+            <div className="admin-login-icon">
+              <ShieldCheck size={25} />
+            </div>
+
+            <div>
+              <p className="admin-login-eyebrow">
+                SECURITY PERSONNEL
+              </p>
+
+              <h1>
+                Admin Portal
+              </h1>
+
+              <p>
+                Sign in to manage and review campus
+                security incidents.
+              </p>
+            </div>
+
+          </div>
+
+          {/* FORM */}
+          <form
+            className="admin-login-form"
+            onSubmit={handleSubmit}
+          >
+
+            <div className="admin-form-group">
+              <label htmlFor="security_id">
+                Security ID
+              </label>
+
+              <input
+                id="security_id"
+                type="text"
+                placeholder="e.g. SEC001"
+                value={securityId}
+                onChange={(event) =>
+                  setSecurityId(
+                    event.target.value
+                  )
+                }
+                required
+              />
+            </div>
+
+            <div className="admin-form-group">
+              <label htmlFor="admin_password">
+                Password
+              </label>
+
+              <input
+                id="admin_password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(event) =>
+                  setPassword(
+                    event.target.value
+                  )
+                }
+                required
+              />
+            </div>
+
+            {error && (
+              <p className="admin-login-error">
+                {error}
+              </p>
+            )}
+
+            <button
+              type="submit"
+              className="admin-login-submit"
+              disabled={loading}
+            >
+              <ShieldCheck size={18} />
+
+              {loading
+                ? "Signing in..."
+                : "Sign In as Admin"}
+            </button>
+
+          </form>
+
+          {/* FOOTER */}
+          <div className="admin-login-footer">
+
+            <span>
+              Don't have an admin account?
+            </span>
+
+            <button
+              type="button"
+              onClick={() =>
+                setPage("admin-register")
+              }
+            >
+              Register
+            </button>
+
+          </div>
+
+        </div>
+
+        <p className="admin-security-note">
+          Authorized University of Ghana Campus Security Personnel
+        </p>
 
       </div>
     </div>
