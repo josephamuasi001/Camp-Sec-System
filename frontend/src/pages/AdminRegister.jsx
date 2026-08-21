@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { ShieldCheck } from "lucide-react";
 import { registerAdmin } from "../services/api";
+import "../styles/admin-register.css";
 
 function AdminRegister({ setPage }) {
   const [formData, setFormData] = useState({
@@ -43,34 +44,41 @@ function AdminRegister({ setPage }) {
 
   if (registered) {
     return (
-      <div className="success-page">
-        <div className="success-card">
-          <div className="success-icon">
-            ✓
-          </div>
+      <div className="admin-success-page">
+  <div className="admin-success-card">
 
-          <h1>Admin Account Created</h1>
+    <div className="admin-success-icon">
+      ✓
+    </div>
 
-          <p>
-            Your admin account has been successfully registered.
-          </p>
+    <h1>Admin Account Created</h1>
 
-          <button
-            className="primary-button"
-            onClick={() => setPage("admin-login")}
-          >
-            Go to Admin Login
-          </button>
-        </div>
-      </div>
+    <p>
+      Your admin account has been successfully registered.
+      You can now sign in to the campus security administration
+      portal.
+    </p>
+
+    <button
+      className="admin-success-button"
+      onClick={() => setPage("admin-login")}
+    >
+      Go to Admin Login
+    </button>
+
+  </div>
+</div>
     );
   }
 
   return (
-    <div className="report-page">
-      <div className="report-header">
-        <div className="login-icon">
-          <ShieldCheck size={32} />
+  <div className="admin-register-page">
+    <div className="admin-register-container">
+
+      <div className="admin-register-header">
+
+        <div className="admin-register-icon">
+          <ShieldCheck size={30} />
         </div>
 
         <p className="eyebrow">
@@ -79,16 +87,31 @@ function AdminRegister({ setPage }) {
 
         <h1>Admin Registration</h1>
 
-        <p>
+        <p className="admin-register-description">
           Create an administrator account for the campus
           security system.
         </p>
+
       </div>
 
-      <form
-        className="incident-form"
-        onSubmit={handleSubmit}
-      >
+      <div className="admin-register-card">
+
+        <div className="admin-security-notice">
+          <ShieldCheck size={18} />
+
+          <div>
+            <strong>Security Personnel Access</strong>
+            <span>
+              This account is intended for authorised
+              campus security personnel.
+            </span>
+          </div>
+        </div>
+
+        <form
+          className="admin-register-form"
+          onSubmit={handleSubmit}
+        >
         <div className="form-group">
           <label htmlFor="security_id">
             Admin ID
@@ -154,14 +177,14 @@ function AdminRegister({ setPage }) {
         </div>
 
         {error && (
-          <p className="form-error">
+          <p className="admin-register-error">
             {error}
           </p>
         )}
 
         <button
           type="submit"
-          className="primary-button submit-button"
+          className="admin-register-submit"
           disabled={loading}
         >
           <ShieldCheck size={18} />
@@ -171,23 +194,29 @@ function AdminRegister({ setPage }) {
             : "Create Admin Account"}
         </button>
 
-        <button
-          type="button"
-          className="back-button"
-          onClick={() => setPage("admin-login")}
-        >
-          Already have an admin account? Login
-        </button>
+        <div className="admin-register-actions">
 
-        <button
-          type="button"
-          className="back-button"
-          onClick={() => setPage("login")}
-        >
-          Back to Student Login
-        </button>
+  <button
+    type="button"
+    className="admin-register-link"
+    onClick={() => setPage("admin-login")}
+  >
+    Already have an admin account? Login
+  </button>
+
+  <button
+    type="button"
+    className="admin-register-link"
+    onClick={() => setPage("login")}
+  >
+    Back to Student Login
+  </button>
+
+</div>
       </form>
     </div>
+    </div>
+  </div>
   );
 }
 
