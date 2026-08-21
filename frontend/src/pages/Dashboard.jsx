@@ -7,6 +7,8 @@ import IncidentCard from "../components/IncidentCard";
 
 import { getStudentIncidents } from "../services/api";
 
+import "../styles/dashboard.css";
+
 function Dashboard({
   setPage,
   setSelectedIncident,

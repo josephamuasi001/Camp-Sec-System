@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { createIncident } from "../services/api";
 import { ArrowLeft, Send } from "lucide-react";
+import "../styles/reportIncident.css";
 
 function ReportIncident({ setPage, student }) {
   const [formData, setFormData] = useState({
