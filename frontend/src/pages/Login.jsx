@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import { loginStudent } from "../services/api";
 
+import "../styles/login.css";
+
 function Login({ setPage, setStudent }) {
   const [studentId, setStudentId] = useState("");
 
