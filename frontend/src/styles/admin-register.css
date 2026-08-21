@@ -1,0 +1,374 @@
+/* =========================================
+   CAMP-SEC ADMIN REGISTRATION
+   ========================================= */
+
+.admin-register-page {
+  min-height: calc(100vh - 68px);
+  background: #f5f7fa;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px 64px;
+}
+
+/* Main registration container */
+.admin-register-container {
+  width: 100%;
+  max-width: 720px;
+}
+
+/* Header */
+.admin-register-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.admin-register-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #0b3a70;
+  color: #ffffff;
+
+  border-radius: 14px;
+
+  box-shadow: 0 8px 20px rgba(11, 58, 112, 0.16);
+}
+
+.admin-register-header .eyebrow {
+  margin-bottom: 8px;
+}
+
+.admin-register-header h1 {
+  margin: 0;
+  color: #0b315d;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.admin-register-description {
+  max-width: 520px;
+  margin: 10px auto 0;
+
+  color: #61738c;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Registration card */
+.admin-register-card {
+  background: #ffffff;
+  border: 1px solid #dfe6ee;
+  border-radius: 18px;
+
+  padding: 32px;
+
+  box-shadow: 0 12px 30px rgba(15, 35, 60, 0.06);
+}
+
+/* Security notice */
+.admin-security-notice {
+  display: flex;
+  gap: 12px;
+
+  padding: 14px 16px;
+  margin-bottom: 26px;
+
+  background: #f8f9fb;
+  border: 1px solid #e3e8ef;
+  border-left: 3px solid #d6a400;
+
+  border-radius: 10px;
+}
+
+.admin-security-notice svg {
+  flex-shrink: 0;
+  color: #b88900;
+  margin-top: 1px;
+}
+
+.admin-security-notice strong {
+  display: block;
+  margin-bottom: 3px;
+
+  color: #17365f;
+  font-size: 13px;
+}
+
+.admin-security-notice span {
+  color: #667892;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Form */
+.admin-register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-register-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.admin-register-form label {
+  color: #243b5a;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.admin-register-form input {
+  width: 100%;
+  box-sizing: border-box;
+
+  height: 48px;
+  padding: 0 14px;
+
+  border: 1px solid #d6dee8;
+  border-radius: 9px;
+
+  background: #ffffff;
+
+  color: #172b4d;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.admin-register-form input::placeholder {
+  color: #9aa8b9;
+}
+
+.admin-register-form input:hover {
+  border-color: #b8c5d4;
+}
+
+.admin-register-form input:focus {
+  border-color: #0b4f91;
+  box-shadow: 0 0 0 3px rgba(11, 79, 145, 0.1);
+  background: #ffffff;
+}
+
+/* Error */
+.admin-register-error {
+  margin: 0;
+
+  padding: 12px 14px;
+
+  border-radius: 8px;
+
+  background: #fff4f4;
+  border: 1px solid #f1cccc;
+
+  color: #b42318;
+
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* Primary button */
+.admin-register-submit {
+  width: 100%;
+  height: 48px;
+
+  margin-top: 4px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #0b3a70;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.admin-register-submit:hover:not(:disabled) {
+  background: #082f5b;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(11, 58, 112, 0.18);
+}
+
+.admin-register-submit:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.admin-register-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Bottom navigation */
+.admin-register-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  margin-top: 20px;
+  padding-top: 20px;
+
+  border-top: 1px solid #edf0f4;
+}
+
+.admin-register-link {
+  border: none;
+  background: transparent;
+
+  padding: 8px;
+
+  color: #496786;
+
+  font-size: 13px;
+  font-weight: 500;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.admin-register-link:hover {
+  color: #0b3a70;
+  text-decoration: underline;
+}
+
+/* =========================================
+   SUCCESS STATE
+   ========================================= */
+
+.admin-success-page {
+  min-height: calc(100vh - 68px);
+
+  background: #f5f7fa;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px 20px;
+}
+
+.admin-success-card {
+  width: 100%;
+  max-width: 480px;
+
+  padding: 42px 36px;
+
+  text-align: center;
+
+  background: #ffffff;
+
+  border: 1px solid #dfe6ee;
+  border-radius: 18px;
+
+  box-shadow: 0 14px 35px rgba(15, 35, 60, 0.07);
+}
+
+.admin-success-icon {
+  width: 64px;
+  height: 64px;
+
+  margin: 0 auto 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #edf7f0;
+  color: #22863a;
+
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.admin-success-card h1 {
+  margin: 0 0 10px;
+
+  color: #0b315d;
+
+  font-size: 26px;
+}
+
+.admin-success-card p {
+  margin: 0 0 26px;
+
+  color: #667892;
+
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.admin-success-button {
+  width: 100%;
+  height: 46px;
+
+  border: none;
+  border-radius: 9px;
+
+  background: #0b3a70;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.admin-success-button:hover {
+  background: #082f5b;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 600px) {
+  .admin-register-page {
+    padding: 32px 16px 48px;
+  }
+
+  .admin-register-card {
+    padding: 24px 20px;
+    border-radius: 14px;
+  }
+
+  .admin-register-header h1 {
+    font-size: 27px;
+  }
+
+  .admin-register-description {
+    font-size: 14px;
+  }
+
+  .admin-success-card {
+    padding: 34px 24px;
+  }
+}

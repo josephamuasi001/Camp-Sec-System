@@ -1,0 +1,603 @@
+/* =========================================
+   SECURITY OPERATIONS DASHBOARD
+   ========================================= */
+
+.security-page {
+  min-height: calc(100vh - 70px);
+  padding: 38px 5%;
+  background: #f5f7fa;
+  color: #102a43;
+}
+
+/* =========================================
+   HERO
+   ========================================= */
+
+.security-hero {
+  margin-bottom: 28px;
+}
+
+.security-hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  padding: 30px 34px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(15, 35, 60, 0.05);
+}
+
+.security-title-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.security-icon {
+  width: 52px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  background: #edf4fb;
+  color: #06457f;
+  border-radius: 14px;
+}
+
+.security-hero .eyebrow {
+  margin-bottom: 6px;
+  color: #c69214;
+}
+
+.security-hero h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.15;
+  color: #082f5b;
+}
+
+.security-hero p:not(.eyebrow) {
+  margin: 8px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.security-access {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+
+  padding: 10px 15px;
+
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+
+  color: #166534;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.access-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #16a34a;
+}
+
+/* =========================================
+   STATISTICS
+   ========================================= */
+
+.security-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.security-stat {
+  position: relative;
+  overflow: hidden;
+
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+
+  padding: 24px 26px;
+
+  box-shadow: 0 6px 18px rgba(15, 35, 60, 0.04);
+}
+
+.security-stat::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.security-stat.pending::before {
+  background: #c69214;
+}
+
+.security-stat.investigation::before {
+  background: #2563eb;
+}
+
+.security-stat.resolved::before {
+  background: #16a34a;
+}
+
+.stat-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-content span {
+  font-size: 13px;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.stat-content strong {
+  margin-top: 8px;
+  font-size: 32px;
+  line-height: 1;
+  color: #082f5b;
+}
+
+.stat-content small {
+  margin-top: 8px;
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+/* =========================================
+   INCIDENT SECTION
+   ========================================= */
+
+.security-incidents {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+
+  box-shadow: 0 8px 24px rgba(15, 35, 60, 0.05);
+
+  overflow: hidden;
+}
+
+.security-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 28px 30px;
+
+  border-bottom: 1px solid #e8edf3;
+}
+
+.section-eyebrow {
+  margin: 0 0 6px;
+
+  color: #c69214;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.security-section-header h2 {
+  margin: 0;
+
+  color: #082f5b;
+  font-size: 21px;
+}
+
+.security-section-header p:not(.section-eyebrow) {
+  margin: 6px 0 0;
+
+  color: #64748b;
+  font-size: 13px;
+}
+
+.incident-count {
+  padding: 8px 13px;
+
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================
+   INCIDENT LIST
+   ========================================= */
+
+.security-incident-list {
+  padding: 8px 30px 20px;
+}
+
+/* =========================================
+   STATES
+   ========================================= */
+
+.security-state {
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  color: #64748b;
+}
+
+.security-state h3 {
+  margin: 12px 0 5px;
+
+  color: #334155;
+  font-size: 16px;
+}
+
+.security-state p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.security-error {
+  color: #b91c1c;
+}
+
+/* =========================================
+   LOADING
+   ========================================= */
+
+.loading-spinner {
+  width: 28px;
+  height: 28px;
+
+  border: 3px solid #e2e8f0;
+  border-top-color: #082f5b;
+
+  border-radius: 50%;
+
+  animation: security-spin 0.8s linear infinite;
+}
+
+@keyframes security-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+
+  .security-page {
+    padding: 28px 24px;
+  }
+
+  .security-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .security-hero-content {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .security-access {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+
+  .security-page {
+    padding: 20px 16px;
+  }
+
+  .security-hero-content {
+    padding: 24px 20px;
+    border-radius: 14px;
+  }
+
+  .security-title-group {
+    align-items: flex-start;
+  }
+
+  .security-icon {
+    width: 44px;
+    height: 44px;
+  }
+
+  .security-hero h1 {
+    font-size: 25px;
+  }
+
+  .security-section-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+
+    padding: 22px 20px;
+  }
+
+  .security-incident-list {
+    padding: 5px 15px 15px;
+  }
+
+}
+
+/* =========================================
+   SECURITY INCIDENT CARDS
+   ========================================= */
+
+.security-incident-card {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  padding: 20px 4px;
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #e8edf3;
+
+  text-align: left;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    padding 0.2s ease;
+}
+
+.security-incident-card:last-child {
+  border-bottom: none;
+}
+
+.security-incident-card:hover {
+  padding-left: 12px;
+  padding-right: 12px;
+
+  background: #f8fafc;
+}
+
+/* =========================================
+   CASE NUMBER
+   ========================================= */
+
+.security-incident-number {
+  width: 72px;
+  flex-shrink: 0;
+
+  color: #94a3b8;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+/* =========================================
+   MAIN CONTENT
+   ========================================= */
+
+.security-incident-main {
+  flex: 1;
+
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 150px 150px 36px;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.security-incident-title h3 {
+  margin: 0;
+
+  color: #082f5b;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.security-incident-location {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  margin-top: 6px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.security-incident-location svg {
+  color: #94a3b8;
+}
+
+/* =========================================
+   DATE
+   ========================================= */
+
+.security-incident-date {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.security-incident-date svg {
+  color: #94a3b8;
+}
+
+/* =========================================
+   STATUS
+   ========================================= */
+
+.security-status {
+  width: fit-content;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  white-space: nowrap;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: currentColor;
+}
+
+/* Submitted */
+
+.security-status-submitted {
+  background: #fff8e6;
+  color: #a16207;
+}
+
+/* Under Review */
+
+.security-status-under-review {
+  background: #fff8e6;
+  color: #a16207;
+}
+
+/* Under Investigation */
+
+.security-status-under-investigation {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+/* Resolved */
+
+.security-status-resolved {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+/* Closed */
+
+.security-status-closed {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+/* =========================================
+   ACTION
+   ========================================= */
+
+.security-incident-action {
+  width: 34px;
+  height: 34px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 9px;
+
+  color: #94a3b8;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.security-incident-card:hover .security-incident-action {
+  background: #eaf2f9;
+  color: #06457f;
+
+  transform: translate(2px, -2px);
+}
+
+/* =========================================
+   RESPONSIVE INCIDENT CARDS
+   ========================================= */
+
+@media (max-width: 800px) {
+
+  .security-incident-main {
+    grid-template-columns: 1fr auto;
+    gap: 10px 15px;
+  }
+
+  .security-incident-date {
+    grid-column: 1;
+  }
+
+  .security-status {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .security-incident-action {
+    display: none;
+  }
+
+}
+
+@media (max-width: 550px) {
+
+  .security-incident-card {
+    gap: 10px;
+    padding: 17px 2px;
+  }
+
+  .security-incident-number {
+    width: auto;
+
+    align-self: flex-start;
+
+    font-size: 9px;
+  }
+
+  .security-incident-main {
+    grid-template-columns: 1fr;
+  }
+
+  .security-status {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .security-incident-date {
+    grid-column: 1;
+  }
+
+}

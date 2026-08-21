@@ -1,0 +1,293 @@
+.register-page {
+  min-height: calc(100vh - 66px);
+  background: #f4f7fa;
+  display: flex;
+  justify-content: center;
+  padding: 48px 24px 60px;
+}
+
+.register-container {
+  width: 100%;
+  max-width: 560px;
+}
+
+.register-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #315d87;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 0;
+  margin-bottom: 22px;
+  cursor: pointer;
+}
+
+.register-back:hover {
+  color: #063b73;
+}
+
+.register-card {
+  background: #ffffff;
+  border: 1px solid #dce4ec;
+  border-radius: 18px;
+  padding: 36px;
+  box-shadow: 0 12px 35px rgba(6, 59, 115, 0.08);
+}
+
+/* -------------------------
+   BRAND
+------------------------- */
+
+.register-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #edf1f5;
+}
+
+.register-logo {
+  width: 46px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-logo img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.register-brand-name {
+  margin: 0;
+  color: #063b73;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.register-brand span {
+  display: block;
+  margin-top: 2px;
+  color: #70839a;
+  font-size: 12px;
+}
+
+/* -------------------------
+   HEADER
+------------------------- */
+
+.register-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  margin: 30px 0 28px;
+}
+
+.register-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 11px;
+  background: #eef5fb;
+  color: #063b73;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.register-eyebrow {
+  margin: 2px 0 7px;
+  color: #c89411;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.register-header h1 {
+  margin: 0;
+  color: #092f57;
+  font-size: 30px;
+  line-height: 1.15;
+  font-weight: 750;
+}
+
+.register-header p:last-child {
+  margin: 8px 0 0;
+  color: #667d95;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+/* -------------------------
+   FORM
+------------------------- */
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.register-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.register-form-group label {
+  color: #193653;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.register-form-group input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 48px;
+  padding: 0 14px;
+  border: 1px solid #d5dfe9;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #193653;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.register-form-group input::placeholder {
+  color: #9aaabd;
+}
+
+.register-form-group input:focus {
+  border-color: #0a4c8c;
+  box-shadow: 0 0 0 3px rgba(10, 76, 140, 0.09);
+}
+
+/* -------------------------
+   ERROR
+------------------------- */
+
+.register-error {
+  margin: -4px 0 0;
+  padding: 11px 13px;
+  border-radius: 8px;
+  background: #fff4f3;
+  border: 1px solid #f2d3d0;
+  color: #b42318;
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* -------------------------
+   SUBMIT BUTTON
+------------------------- */
+
+.register-submit {
+  width: 100%;
+  height: 48px;
+  margin-top: 4px;
+  border: none;
+  border-radius: 9px;
+  background: #063b73;
+  color: #ffffff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.register-submit:hover {
+  background: #052f5d;
+  transform: translateY(-1px);
+}
+
+.register-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* -------------------------
+   FOOTER
+------------------------- */
+
+.register-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 25px;
+  padding-top: 22px;
+  border-top: 1px solid #edf1f5;
+  color: #71849a;
+  font-size: 13px;
+}
+
+.register-footer button {
+  border: none;
+  background: transparent;
+  color: #063b73;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.register-footer button:hover {
+  color: #c89411;
+}
+
+/* -------------------------
+   SECURITY NOTE
+------------------------- */
+
+.register-security-note {
+  text-align: center;
+  margin: 18px 0 0;
+  color: #8a9bad;
+  font-size: 11px;
+}
+
+/* -------------------------
+   RESPONSIVE
+------------------------- */
+
+@media (max-width: 600px) {
+  .register-page {
+    padding: 30px 16px 40px;
+  }
+
+  .register-card {
+    padding: 26px 20px;
+    border-radius: 14px;
+  }
+
+  .register-header h1 {
+    font-size: 26px;
+  }
+
+  .register-header {
+    gap: 12px;
+  }
+
+  .register-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

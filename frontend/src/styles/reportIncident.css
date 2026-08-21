@@ -1,0 +1,325 @@
+/* =========================================
+   CAMP-SEC — REPORT INCIDENT
+   ========================================= */
+
+.report-page {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 10px 0 50px;
+}
+
+/* Back button */
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  background: transparent;
+  color: #64748b;
+  padding: 8px 0;
+  margin-bottom: 28px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.back-button:hover {
+  color: #0b3d78;
+  transform: translateX(-2px);
+}
+
+/* Header */
+
+.report-header {
+  margin-bottom: 28px;
+}
+
+.report-header .eyebrow {
+  color: #c69214;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.report-header h1 {
+  color: #0b3d78;
+  font-size: 32px;
+  font-weight: 750;
+  letter-spacing: -0.7px;
+  margin-bottom: 9px;
+}
+
+.report-header > p:last-child {
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.7;
+  max-width: 680px;
+}
+
+/* Form container */
+
+.incident-form {
+  position: relative;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+}
+
+/* Gold accent */
+
+.incident-form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #c69214;
+  border-radius: 16px 0 0 16px;
+}
+
+/* Form groups */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  color: #172033;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Inputs */
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #d8e0ea;
+  border-radius: 9px;
+  background: #ffffff;
+  color: #172033;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+  border-color: #b8c4d3;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: #0b3d78;
+  box-shadow: 0 0 0 3px rgba(11, 61, 120, 0.08);
+}
+
+/* Date / time */
+
+.form-group input[type="date"],
+.form-group input[type="time"] {
+  cursor: pointer;
+}
+
+/* Textarea */
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+/* Two-column row */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Error */
+
+.form-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  border-radius: 9px;
+  padding: 11px 13px;
+  font-size: 13px;
+  margin: 4px 0 18px;
+}
+
+/* Submit button */
+
+.submit-button {
+  width: 100%;
+  min-height: 48px;
+  border: none;
+  border-radius: 9px;
+  background: #0b3d78;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.submit-button:hover:not(:disabled) {
+  background: #082f5c;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(11, 61, 120, 0.18);
+}
+
+.submit-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.submit-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   SUCCESS STATE
+   ========================================= */
+
+.success-page {
+  min-height: 65vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0;
+}
+
+.success-card {
+  position: relative;
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  padding: 45px 35px;
+  text-align: center;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.07);
+  overflow: hidden;
+}
+
+/* Gold top accent */
+
+.success-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #c69214;
+}
+
+.success-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #047857;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 800;
+}
+
+.success-card h1 {
+  color: #0b3d78;
+  font-size: 27px;
+  margin-bottom: 10px;
+}
+
+.success-card p {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 14px;
+  margin: 0 auto 25px;
+  max-width: 390px;
+}
+
+.success-card .primary-button {
+  margin: 0 auto;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 700px) {
+  .report-page {
+    padding: 5px 0 35px;
+  }
+
+  .report-header h1 {
+    font-size: 27px;
+  }
+
+  .incident-form {
+    padding: 24px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .report-header h1 {
+    font-size: 24px;
+  }
+
+  .report-header > p:last-child {
+    font-size: 14px;
+  }
+
+  .incident-form {
+    padding: 22px 16px;
+    border-radius: 13px;
+  }
+
+  .success-card {
+    padding: 38px 22px;
+  }
+
+  .success-card h1 {
+    font-size: 24px;
+  }
+}
