@@ -5,9 +5,14 @@ import { Plus } from "lucide-react";
 import StatCard from "../components/StatCard";
 import IncidentCard from "../components/IncidentCard";
 
-import { getIncidents } from "../services/api";
+import { getStudentIncidents } from "../services/api";
 
-function Dashboard({ setPage, setSelectedIncident }) {
+function Dashboard({
+  setPage,
+  setSelectedIncident,
+  student,
+}) {
+  
   const [incidents, setIncidents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -16,8 +21,9 @@ function Dashboard({ setPage, setSelectedIncident }) {
   useEffect(() => {
     const loadIncidents = async () => {
       try {
-        const data = await getIncidents();
-
+        const data = await getStudentIncidents(
+          student.student_id
+        );
         setIncidents(data.incidents);
       } catch (err) {
         setError("Unable to load incidents.");

@@ -1,8 +1,8 @@
-import { useState } from "react";
-import { createIncident } from "../services/api";
-import { ArrowLeft, Send } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, Save } from "lucide-react";
+import { getIncident, updateIncident } from "../services/api";
 
-function ReportIncident({ setPage, student }) {
+function EditIncident({ setPage, incidentId }) {
   const [formData, setFormData] = useState({
     incident_type: "",
     location: "",
@@ -11,9 +11,39 @@ function ReportIncident({ setPage, student }) {
     description: "",
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    const loadIncident = async () => {
+      if (!incidentId) {
+        setError("No incident selected.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const data = await getIncident(incidentId);
+        const incident = data.incident;
+
+        setFormData({
+          incident_type: incident.incident_type,
+          location: incident.location,
+          incident_date: incident.incident_date,
+          incident_time: incident.incident_time,
+          description: incident.description,
+        });
+      } catch (err) {
+        console.error(err);
+        setError("Unable to load incident.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadIncident();
+  }, [incidentId]);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -27,43 +57,43 @@ function ReportIncident({ setPage, student }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setSubmitting(true);
+    setSaving(true);
     setError("");
 
     try {
-      await createIncident({
-        ...formData,
-        student_id: student.student_id,
-      });
+      await updateIncident(incidentId, formData);
 
-      setSubmitted(true);
+      alert("Incident updated successfully.");
+
+      setPage("details");
     } catch (err) {
       console.error(err);
-      setError("Unable to submit incident. Please try again.");
+      setError("Unable to update incident. Please try again.");
     } finally {
-      setSubmitting(false);
+      setSaving(false);
     }
   };
 
-  if (submitted) {
+  if (loading) {
     return (
-      <div className="success-page">
-        <div className="success-card">
-          <div className="success-icon">✓</div>
+      <div className="details-page">
+        <p>Loading incident...</p>
+      </div>
+    );
+  }
 
-          <h1>Incident Reported</h1>
+  if (error) {
+    return (
+      <div className="details-page">
+        <button
+          className="back-button"
+          onClick={() => setPage("details")}
+        >
+          <ArrowLeft size={18} />
+          Back to Incident
+        </button>
 
-          <p>
-            Your security incident has been successfully submitted.
-          </p>
-
-          <button
-            className="primary-button"
-            onClick={() => setPage("dashboard")}
-          >
-            Back to Dashboard
-          </button>
-        </div>
+        <p className="form-error">{error}</p>
       </div>
     );
   }
@@ -72,24 +102,26 @@ function ReportIncident({ setPage, student }) {
     <div className="report-page">
       <button
         className="back-button"
-        onClick={() => setPage("dashboard")}
+        onClick={() => setPage("details")}
       >
         <ArrowLeft size={18} />
-        Back to Dashboard
+        Back to Incident
       </button>
 
       <div className="report-header">
-        <p className="eyebrow">INCIDENT REPORTING</p>
+        <p className="eyebrow">INCIDENT MANAGEMENT</p>
 
-        <h1>Report a Security Incident</h1>
+        <h1>Edit Incident</h1>
 
         <p>
-          Provide accurate information about the incident so it can
-          be reviewed by campus security.
+          Update the information you provided for this incident.
         </p>
       </div>
 
-      <form className="incident-form" onSubmit={handleSubmit}>
+      <form
+        className="incident-form"
+        onSubmit={handleSubmit}
+      >
         <div className="form-group">
           <label htmlFor="incident_type">
             Incident Type
@@ -123,7 +155,6 @@ function ReportIncident({ setPage, student }) {
             id="location"
             name="location"
             type="text"
-            placeholder="e.g. Balme Library"
             value={formData.location}
             onChange={handleChange}
             required
@@ -171,7 +202,6 @@ function ReportIncident({ setPage, student }) {
             id="description"
             name="description"
             rows="6"
-            placeholder="Describe what happened..."
             value={formData.description}
             onChange={handleChange}
             required
@@ -187,15 +217,17 @@ function ReportIncident({ setPage, student }) {
         <button
           type="submit"
           className="primary-button submit-button"
-          disabled={submitting}
+          disabled={saving}
         >
-          <Send size={18} />
+          <Save size={18} />
 
-          {submitting ? "Submitting..." : "Submit Incident"}
+          {saving
+            ? "Saving Changes..."
+            : "Save Changes"}
         </button>
       </form>
     </div>
   );
 }
 
-export default ReportIncident;
+export default EditIncident;

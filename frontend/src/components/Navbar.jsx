@@ -3,9 +3,26 @@ import {
   LayoutDashboard,
   FilePlus,
   LockKeyhole,
+  LogOut,
 } from "lucide-react";
 
-function Navbar({ setPage }) {
+function Navbar({
+  setPage,
+  student,
+  admin,
+  setStudent,
+  setAdmin,
+}) {
+  const handleLogout = () => {
+    setStudent(null);
+    setAdmin(null);
+
+    localStorage.removeItem("campsec_student");
+    localStorage.removeItem("campsec_admin");
+
+    setPage("login");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-brand">
@@ -20,20 +37,38 @@ function Navbar({ setPage }) {
       </div>
 
       <div className="navbar-links">
-        <button onClick={() => setPage("dashboard")}>
-          <LayoutDashboard size={18} />
-          Dashboard
-        </button>
+        {student && (
+          <>
+            <button onClick={() => setPage("dashboard")}>
+              <LayoutDashboard size={18} />
+              Dashboard
+            </button>
 
-        <button onClick={() => setPage("report")}>
-          <FilePlus size={18} />
-          Report Incident
-        </button>
+            <button onClick={() => setPage("report")}>
+              <FilePlus size={18} />
+              Report Incident
+            </button>
 
-        <button onClick={() => setPage("security")}>
-          <LockKeyhole size={18} />
-          Security Portal
-        </button>
+            <button onClick={handleLogout}>
+              <LogOut size={18} />
+              Logout
+            </button>
+          </>
+        )}
+
+        {admin && (
+          <>
+            <button onClick={() => setPage("security")}>
+              <LockKeyhole size={18} />
+              Admin Portal
+            </button>
+
+            <button onClick={handleLogout}>
+              <LogOut size={18} />
+              Logout
+            </button>
+          </>
+        )}
       </div>
     </nav>
   );
