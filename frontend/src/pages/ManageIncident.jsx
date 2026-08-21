@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 
-import { ArrowLeft, MapPin, Calendar, Clock } from "lucide-react";
+import {
+  ArrowLeft,
+  MapPin,
+  Calendar,
+  Clock,
+  ShieldCheck,
+} from "lucide-react";
+
 
 import {
   getIncident,
   updateIncidentStatus,
 } from "../services/api";
+
+import "../styles/manageIncident.css";
 
 function ManageIncident({ setPage, incidentId }) {
   const [incident, setIncident] = useState(null);
@@ -87,44 +96,80 @@ function ManageIncident({ setPage, incidentId }) {
   }
 
   return (
-    <div className="details-page">
-      <button
-        className="back-button"
-        onClick={() => setPage("security")}
-      >
-        <ArrowLeft size={18} />
-        Back to Security Portal
-      </button>
+  <div className="manage-page">
 
-      <div className="details-header">
-        <div>
-          <p className="eyebrow">
-            SECURITY MANAGEMENT · INC-{String(incident.id).padStart(3, "0")}
-          </p>
+    <button
+      className="manage-back-button"
+      onClick={() => setPage("security")}
+    >
+      <ArrowLeft size={17} />
+      Back to Security Portal
+    </button>
 
-          <h1>{incident.incident_type}</h1>
+    {/* ================================
+        CASE HEADER
+       ================================ */}
 
-          <p>
-            Review and manage this security incident.
-          </p>
+    <section className="manage-header">
+
+      <div className="manage-header-main">
+
+        <div className="manage-case-label">
+          <span>SECURITY CASE</span>
+          <strong>
+            INC-{String(incident.id).padStart(3, "0")}
+          </strong>
         </div>
 
-        <span
-          className={`status status-${status
-            .toLowerCase()
-            .replaceAll(" ", "-")}`}
-        >
-          {status}
-        </span>
+        <h1>{incident.incident_type}</h1>
+
+        <p>
+          Review the details of this incident and update
+          its status as the investigation progresses.
+        </p>
+
       </div>
 
-      <div className="details-grid">
-        <section className="details-card">
-          <h2>Incident Information</h2>
+      <div
+        className={`manage-status status-${status
+          .toLowerCase()
+          .replaceAll(" ", "-")}`}
+      >
+        <span className="manage-status-dot"></span>
+        {status}
+      </div>
 
-          <div className="info-list">
-            <div className="info-item">
-              <MapPin size={20} />
+    </section>
+
+
+    {/* ================================
+        CASE CONTENT
+       ================================ */}
+
+    <div className="manage-layout">
+
+      <main className="manage-main">
+
+        {/* INCIDENT INFORMATION */}
+
+        <section className="manage-card">
+
+          <div className="manage-card-header">
+            <div>
+              <span className="manage-card-eyebrow">
+                CASE DETAILS
+              </span>
+
+              <h2>Incident Information</h2>
+            </div>
+          </div>
+
+          <div className="manage-info-grid">
+
+            <div className="manage-info-item">
+              <div className="manage-info-icon">
+                <MapPin size={18} />
+              </div>
 
               <div>
                 <span>Location</span>
@@ -132,51 +177,102 @@ function ManageIncident({ setPage, incidentId }) {
               </div>
             </div>
 
-            <div className="info-item">
-              <Calendar size={20} />
+
+            <div className="manage-info-item">
+              <div className="manage-info-icon">
+                <Calendar size={18} />
+              </div>
 
               <div>
-                <span>Date</span>
+                <span>Date Reported</span>
                 <strong>{incident.incident_date}</strong>
               </div>
             </div>
 
-            <div className="info-item">
-              <Clock size={20} />
+
+            <div className="manage-info-item">
+              <div className="manage-info-icon">
+                <Clock size={18} />
+              </div>
 
               <div>
-                <span>Time</span>
+                <span>Time Reported</span>
                 <strong>{incident.incident_time}</strong>
               </div>
             </div>
 
-            <div className="info-item">
-              <span>Incident ID</span>
 
-              <strong>
-                INC-{String(incident.id).padStart(3, "0")}
-              </strong>
+            <div className="manage-info-item">
+              <div className="manage-info-icon">
+                <ShieldCheck size={18} />
+              </div>
+
+              <div>
+                <span>Incident ID</span>
+                <strong>
+                  INC-{String(incident.id).padStart(3, "0")}
+                </strong>
+              </div>
+            </div>
+
+          </div>
+
+        </section>
+
+
+        {/* DESCRIPTION */}
+
+        <section className="manage-card">
+
+          <div className="manage-card-header">
+            <div>
+              <span className="manage-card-eyebrow">
+                REPORT
+              </span>
+
+              <h2>Incident Description</h2>
             </div>
           </div>
-        </section>
 
-        <section className="details-card">
-          <h2>Description</h2>
-
-          <p className="incident-description">
+          <div className="manage-description">
             {incident.description}
-          </p>
+          </div>
+
         </section>
 
-        <section className="details-card status-card">
-          <h2>Update Incident Status</h2>
+      </main>
+
+
+      {/* ================================
+          ACTION PANEL
+         ================================ */}
+
+      <aside className="manage-sidebar">
+
+        <section className="manage-action-card">
+
+          <div className="manage-action-icon">
+            <ShieldCheck size={23} />
+          </div>
+
+          <span className="manage-card-eyebrow">
+            CASE MANAGEMENT
+          </span>
+
+          <h2>Update Case Status</h2>
 
           <p>
-            As security personnel, update the incident as
-            investigation progresses.
+            Change the status of this incident to reflect
+            its current stage in the investigation.
           </p>
 
+
+          <label htmlFor="incident-status">
+            Current Status
+          </label>
+
           <select
+            id="incident-status"
             value={status}
             onChange={(event) =>
               setStatus(event.target.value)
@@ -189,24 +285,34 @@ function ManageIncident({ setPage, incidentId }) {
             <option>Closed</option>
           </select>
 
+
           {error && (
-            <p className="form-error">
+            <p className="manage-error">
               {error}
             </p>
           )}
 
 
           <button
-            className="primary-button"
+            className="manage-update-button"
             onClick={handleUpdate}
             disabled={updating}
           >
-            {updating ? "Updating..." : "Update Status"}
+            <ShieldCheck size={18} />
+
+            {updating
+              ? "Updating Case..."
+              : "Update Case Status"}
           </button>
+
         </section>
-      </div>
+
+      </aside>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default ManageIncident;
